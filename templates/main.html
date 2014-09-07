@@ -1,0 +1,22 @@
+{% block body %}
+<h1>Hello {{ athlete.firstname }} </h1>
+
+<h2>Bikes</h2>
+<ul>
+{% for bike in athlete.bikes %}
+ <li><h3>{{ bike.name }}</h3> {{ bike.distance }}
+{% else %}
+ <h3>None!</h3>
+{% endfor %}
+</ul>
+
+<h2>Shoes</h2>
+<ul>
+{% for shoe in athlete.shoes %}
+ <li><h3>{{ shoe.name }}</h3> {{ shoe.distance }}
+{% else %}
+ <h3>None!</h3>
+{% endfor %}
+</ul>
+
+{% endblock %}

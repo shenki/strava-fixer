@@ -19,9 +19,7 @@ def homepage():
     client = stravalib.client.Client(access_token=flask.session['access_token'])
     athlete = client.get_athlete()
 
-    return '<h1>Hello {}</h1> <p>Shoe: {}</p><p>Bike: {}</p>'.format(
-            athlete.firstname, athlete.shoes[0].name, athlete.bikes[0].name
-            )
+    return flask.render_template('main.html', athlete=athlete)
 
 @app.route('/login')
 def login():
