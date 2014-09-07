@@ -15,6 +15,7 @@ app.secret_key = SECRET_KEY
 def homepage():
     if 'access_token' not in flask.session:
         return flask.redirect(flask.url_for('login'))
+
     client = stravalib.client.Client(access_token=flask.session['access_token'])
     athlete = client.get_athlete()
 
@@ -26,6 +27,7 @@ def homepage():
 def login():
     client = stravalib.client.Client()
     auth_url = client.authorization_url(client_id=CLIENT_ID,
+            scope='write',
             redirect_uri='http://127.0.0.1:7123/auth')
     return '<a href="{}">Authenticate with Strava</a>'.format(auth_url)
 
