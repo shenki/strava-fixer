@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <head>
-
+<title>Strava Fixer</title>
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
 <script src="http://code.jquery.com/jquery-1.11.0.js"></script>
 <script type="text/javascript">
-$( document ).ready( function(){
+$( document ).ready(
+    function(){
     $('.bikes').on('click','.radio-button',function () {
-      $('.radio-button').removeClass('selected');
+      $('.bikes .radio-button').removeClass('selected');
       $(this).addClass('selected')
       });
-    });
+    }
+);
+
+$( document ).ready(
+    function(){
+    $('.shoes').on('click','.radio-button',function () {
+      $('.shoes .radio-button').removeClass('selected');
+      $(this).addClass('selected')
+      });
+    }
+);
+
 </script>
-<title>Joel's Strava Fixer</title>
 
 </head>
 
 {% block body %}
 <h1>Hello {{ athlete.firstname }} </h1>
+
+<p>
+This is the Strava Fixer. It will add the selected bike and shoes to all
+activities in your Strava account that do not have gear associated with them.
+</p>
 
 <div class="content">
 
@@ -34,9 +50,9 @@ $( document ).ready( function(){
     <tbody>
 
     {% for bike in athlete.bikes %}
-    <tr class="active {{'%s' % 'default' if bike.primary}}" data-id="{{bike.id}}">
+    <tr class="{{'%s' % 'default' if bike.primary}}" data-id="{{bike.id}}">
       <td>
-        <a class="default-bike radio-button {{'%s' % 'selected' if bike.primary}}" data-id="{{bike.id}}"></a>
+        <a class="radio-button {{'%s' % 'selected' if bike.primary}}" data-id="{{bike.id}}"></a>
       </td>
       <td><a href="/bikes/{{bike.id}}">{{ bike.name }}</a></td>
       <td>{{ bike.distance }}</td>
@@ -62,9 +78,9 @@ $( document ).ready( function(){
     <tbody>
 
     {% for shoe in athlete.shoes %}
-    <tr class="active  {{'%s' % 'default' if shoe.primary}}" data-id="{{shoe.id}}">
+    <tr class="{{'%s' % 'default' if shoe.primary}}" data-id="{{shoe.id}}">
       <td>
-        <a class="default-shoes radio-button  {{'%s' % 'selected' if shoe.primary}}" data-id="{{shoe.id}}"></a>
+        <a class="radio-button {{'%s' % 'selected' if shoe.primary}}" data-id="{{shoe.id}}"></a>
       </td>
       <td><a href="/shoes/{{shoe.id}}">{{ shoe.name }}</a></td>
       <td>{{ shoe.distance }}</td>
@@ -76,6 +92,14 @@ $( document ).ready( function(){
     </tbody>
   </table>
 </div>
+
+<p>
+<a href="{{ url_for('update') }}" class="button">Add gear to activity</a>
+</p>
+
+<p>
+<a href="{{ url_for('logout') }}" class="button">Log out of Strava</a>
+</p>
 
 </div>
 
