@@ -27,7 +27,16 @@ def login():
     auth_url = client.authorization_url(client_id=CLIENT_ID,
             scope='write',
             redirect_uri='http://127.0.0.1:7123/auth')
-    return '<a href="{}">Authenticate with Strava</a>'.format(auth_url)
+    return flask.render_template('login.html', auth_url=auth_url)
+
+@app.route('/logout')
+def logout():
+    flask.session['access_token'] = ''
+    return flask.redirect(flask.url_for('/'))
+
+@app.route('/update')
+def update():
+    return flask.render_template('update.html')
 
 @app.route('/auth')
 def auth_done():
@@ -39,7 +48,7 @@ def auth_done():
             code = code)
     flask.session['access_token'] = token
     print "Got token {}".format(token)
-    return flask.redirect(flask.url_for('login'))
+    return flask.redirect(flask.url_for('/'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=7123)
