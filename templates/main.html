@@ -1,22 +1,82 @@
+<!DOCTYPE html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<script src="http://code.jquery.com/jquery-1.11.0.js"></script>
+<script type="text/javascript">
+$( document ).ready( function(){
+    $('.bikes').on('click','.radio-button',function () {
+      $('.radio-button').removeClass('selected');
+      $(this).addClass('selected')
+      });
+    });
+</script>
+<title>Joel's Strava Fixer</title>
+
+</head>
+
 {% block body %}
 <h1>Hello {{ athlete.firstname }} </h1>
 
-<h2>Bikes</h2>
-<ul>
-{% for bike in athlete.bikes %}
- <li><h3>{{ bike.name }}</h3> {{ bike.distance }}
-{% else %}
- <h3>None!</h3>
-{% endfor %}
-</ul>
+<div class="content">
 
-<h2>Shoes</h2>
-<ul>
-{% for shoe in athlete.shoes %}
- <li><h3>{{ shoe.name }}</h3> {{ shoe.distance }}
-{% else %}
- <h3>None!</h3>
-{% endfor %}
-</ul>
+<div class="section" id="bikes">
+  <h3 class="marginless">Bikes</h3>
+  <table class="gear bikes">
+    <thead style="">
+      <tr>
+        <th style="width: 15%">Selected</th>
+        <th style="width: 40%">Bike</th>
+        <th style="width: 15%">Kilometers</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for bike in athlete.bikes %}
+    <tr class="active {{'%s' % 'default' if bike.primary}}" data-id="{{bike.id}}">
+      <td>
+        <a class="default-bike radio-button {{'%s' % 'selected' if bike.primary}}" data-id="{{bike.id}}"></a>
+      </td>
+      <td><a href="/bikes/{{bike.id}}">{{ bike.name }}</a></td>
+      <td>{{ bike.distance }}</td>
+    </tr>
+    {% else %}
+    <tr><td>None!</td></tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="shoes">
+  <h3 class="marginless">Running Shoes</h3>
+  <table class="gear shoes">
+    <thead style="">
+      <tr>
+        <th style="width: 15%">Default</th>
+        <th style="width: 40%">Shoes</th>
+        <th style="width: 15%">Kilometers</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for shoe in athlete.shoes %}
+    <tr class="active  {{'%s' % 'default' if shoe.primary}}" data-id="{{shoe.id}}">
+      <td>
+        <a class="default-shoes radio-button  {{'%s' % 'selected' if shoe.primary}}" data-id="{{shoe.id}}"></a>
+      </td>
+      <td><a href="/shoes/{{shoe.id}}">{{ shoe.name }}</a></td>
+      <td>{{ shoe.distance }}</td>
+    </tr>
+    {% else %}
+    <tr><td>None!</td></tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+</div>
 
 {% endblock %}
