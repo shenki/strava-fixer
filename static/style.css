@@ -64,7 +64,19 @@ tr a {
 }
 
 .page {
-  width: 60%;
+  width: 66%;
+}
+
+#header {
+  width: 700px;
+  height: 80px
+  position: relative;
+}
+
+#header .close {
+  position: absolute;
+  top: 20px;
+  right: 36%;
 }
 
 .radio-button.selected, .radio-button:active, .radio-button:focus {

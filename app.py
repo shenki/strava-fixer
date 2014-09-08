@@ -31,8 +31,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    flask.session['access_token'] = ''
-    return flask.redirect(flask.url_for('/'))
+    flask.session.pop('access_token')
+    return flask.redirect(flask.url_for('homepage'))
 
 @app.route('/update')
 def update():
@@ -47,8 +47,7 @@ def auth_done():
             client_secret=CLIENT_SECRET,
             code = code)
     flask.session['access_token'] = token
-    print "Got token {}".format(token)
-    return flask.redirect(flask.url_for('/'))
+    return flask.redirect(flask.url_for('homepage'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=7123)

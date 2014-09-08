@@ -6,8 +6,12 @@
 
 {% block body %}
 
-<div class="page">
+<div id="header">
   <h1>Strava Fixer</h1>
+  <a href="{{ url_for('logout') }}" class="close button">Log out</a>
+</div>
+
+<div class="page">
 
   <p class="progress-text">
   Waiting...

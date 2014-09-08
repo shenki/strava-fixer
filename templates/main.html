@@ -28,14 +28,20 @@ $( document ).ready(
 </head>
 
 {% block body %}
-<h1>Hello {{ athlete.firstname }} </h1>
+
+<div id="header">
+  <h1>Strava Fixer</h1>
+  <a href="{{ url_for('logout') }}" class="close button">Log out</a>
+</div>
+
+<div class="page">
+
+<h2>Hello {{ athlete.firstname }} </h2>
 
 <p>
 This is the Strava Fixer. It will add the selected bike and shoes to all
 activities in your Strava account that do not have gear associated with them.
 </p>
-
-<div class="page">
 
 <div class="section" id="bikes">
   <h3 class="marginless">Bikes</h3>
@@ -94,11 +100,7 @@ activities in your Strava account that do not have gear associated with them.
 </div>
 
 <p>
-<a href="{{ url_for('update') }}" class="button">Add gear to activity</a>
-</p>
-
-<p>
-<a href="{{ url_for('logout') }}" class="button">Log out of Strava</a>
+<a href="{{ url_for('update') }}" class="button">Add gear to all activities</a>
 </p>
 
 </div>
