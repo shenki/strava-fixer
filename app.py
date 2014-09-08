@@ -9,8 +9,6 @@ app.config.from_envvar('FIXSTRAVA_CONFIG')
 
 logging.basicConfig(level=logging.INFO)
 
-app.secret_key = SECRET_KEY
-
 @app.route('/')
 def homepage():
     if 'access_token' not in flask.session:
